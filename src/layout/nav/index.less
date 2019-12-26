@@ -1,0 +1,50 @@
+.el-col-12{
+  width: 100%;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  height: 100%;
+}
+._navindex {
+  height: 100%;
+  .el-menu--collapse {
+    width: 39px;
+    height: 100%;
+    >li {
+      margin: 4px 0;
+      height: 39px;
+      padding: 0 !important;
+      >div {
+        padding: 0 !important;
+        text-align: center;
+        height: 39px;
+        line-height: 39px;
+      }
+    }
+  }
+  .iscolclass {
+    >li {
+      >* {
+        height: 39px;
+        line-height: 39px;
+        >li{
+          height: 39px;
+          line-height: 39px;
+        }
+      }
+    }
+    >.el-menu-item {
+      height: 39px;
+      line-height: 39px;
+    }
+  }
+}
+.el-menu--vertical {
+  >ul {
+    padding: 0;
+    >li {
+      height: 39px;
+      line-height: 39px;
+    }
+  }
+}
