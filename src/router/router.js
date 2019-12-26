@@ -18,6 +18,7 @@ export default [
       {
         path: '/home',
         name: '首页',
+        icon: 'fa-home',
         component: Home
       }
     ]
@@ -25,6 +26,7 @@ export default [
   {
     path: '/user/',
     name: '管理中心',
+    icon: 'fa-ravelry',
     meta: {
       a: 1
     },

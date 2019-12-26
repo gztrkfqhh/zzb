@@ -15,9 +15,13 @@ import 'font-awesome/css/font-awesome.css'
 import Qs from 'qs'
 // 引入全局定义
 import Global from '../config/global'
+import FontsIcon from './components/fonticons/'
 
 Vue.use(requrst)
 Vue.use(ElementUI)
+
+// 注册全局
+Vue.component('font-icon', FontsIcon)
 
 Vue.config.productionTip = false
 Vue.config.productionTip = false

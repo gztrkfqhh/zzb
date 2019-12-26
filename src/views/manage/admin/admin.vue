@@ -41,7 +41,7 @@ export default {
     this.adminData = {
       url: '192.168.60.165',
       data: {
-        code: 2,
+        code: 200,
         data: [
           {
             name: 'zh',

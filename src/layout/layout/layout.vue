@@ -2,7 +2,7 @@
   <div id="zza-view" class="clearfix">
     <znav></znav>
     <zheader></zheader>
-    <div class="_cont fl" :style="homeStyle ? homeStyle : {paddingLeft: '200px'}">
+    <div class="_cont fl" :style="homeStyle ? homeStyle : {paddingLeft: '195px'}">
       <router-view></router-view>
     </div>
   </div>

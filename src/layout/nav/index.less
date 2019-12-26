@@ -5,6 +5,14 @@
   width: 200px;
   height: 100%;
 }
+.elmenuright {
+  margin-left: -5px;
+  overflow: hidden;
+  width: 200px;
+}
+.elMenuRightClass {
+  margin-left: 0;
+}
 ._navindex {
   height: 100%;
   .el-menu--collapse {
@@ -21,13 +29,29 @@
         line-height: 39px;
       }
     }
+    >li:nth-child(1) {
+      margin-top: 0;
+    }
+  }
+  .elmenuleft{
+    margin-left: 5px;
+  }
+  .elMenuLeftClass{
+    margin-left: 0;
   }
   .iscolclass {
+    overflow-x: auto;
     >li {
-      >* {
+      >div {
         height: 39px;
         line-height: 39px;
         >li{
+          height: 39px;
+          line-height: 39px;
+        }
+      }
+      >ul {
+        >li {
           height: 39px;
           line-height: 39px;
         }

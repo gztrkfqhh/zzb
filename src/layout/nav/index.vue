@@ -1,9 +1,9 @@
 <template>
-  <div class="_navindex">
+  <div class="_navindex" :class="elMenuRightClass ? elMenuRightClass : 'elmenuright'">
     <el-menu
       :default-active="$route.path"
       class="el-menu-vertical-demo iscolclass"
-      @select="handleSlect"
+      :class="elMenuLeftClass ?  elMenuLeftClass: 'elmenuleft'"
       :collapse="isCollapse"
       router
     >
@@ -11,7 +11,7 @@
         <template v-if="item.meta">
           <el-submenu :key="index" :index="item.path">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <font-icon :IconClass="item.meta.icon"></font-icon>
               <span>{{item.meta.name}}</span>
             </template>
             <el-menu-item v-for="(child, i) in item.children" :key="i" :index="child.path">
@@ -21,8 +21,8 @@
         </template>
         <template v-else>
           <el-menu-item :key="index" :index="item.path">
-            <i class="el-icon-menu"></i>
-            <span slot="title">{{item.name}}</span>
+            <font-icon :IconClass="item.icon"></font-icon>
+            <span slot="title">{{item.name}} </span>
           </el-menu-item>
         </template>
       </template>
@@ -44,6 +44,8 @@ export default {
   computed: {
     ...mapState({
       isCollapse: state => state.header.isCollapse,
+      elMenuLeftClass: state => state.header.elMenuLeftClass,
+      elMenuRightClass: state => state.header.elMenuRightClass,
       menuLists: state => state.route.getroutes
     })
   },
@@ -58,11 +60,7 @@ export default {
   methods: {
     ...mapActions([
       'getRoutes'
-    ]),
-    handleSlect (key, keys) {
-      console.log(key)
-      console.log(keys)
-    }
+    ])
   },
   mounted () {
     this.getRoutes()

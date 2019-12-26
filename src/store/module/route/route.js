@@ -10,7 +10,8 @@ const route = {
           state.getroutes.push({
             path: item.path,
             meta: {
-              name: item.name
+              name: item.name,
+              icon: item.icon
             },
             children: item.children.map(c => {
               return {
@@ -24,7 +25,8 @@ const route = {
             item.children.forEach(child => {
               state.getroutes.push({
                 path: child.path,
-                name: child.name
+                name: child.name,
+                icon: child.icon
               })
             })
           }
