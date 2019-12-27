@@ -1,12 +1,19 @@
 <template>
-  <div>
-    user
+  <div class="_user">
+    <el-button @click="handleLinkClick">
+      跳转
+    </el-button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'user'
+  name: 'user',
+  methods: {
+    handleLinkClick () {
+      this.$router.push('/user/user/2')
+    }
+  }
 }
 </script>
 
