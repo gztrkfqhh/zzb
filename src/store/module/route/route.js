@@ -5,6 +5,7 @@ const route = {
   },
   mutations: {
     GETROUTES (state) {
+      state.getroutes = []
       routers.forEach((item) => {
         if (item.meta) {
           state.getroutes.push({

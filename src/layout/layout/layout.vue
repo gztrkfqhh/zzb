@@ -2,8 +2,10 @@
   <div id="zza-view" class="clearfix">
     <znav></znav>
     <zheader></zheader>
-    <div class="_cont fl" :style="homeStyle ? homeStyle : {paddingLeft: '195px'}">
-      <router-view></router-view>
+    <div class="_cont fl">
+      <div class="boxcont" :style="homeStyle ? homeStyle : {marginLeft: '195px'}">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +39,10 @@ export default {
      height: 100%;
      border-top: 1px solid #ccc;
      margin-top: 40px;
+     .boxcont{
+       height: 100%;
+       border-left: 1px solid rgb(204, 204, 204);
+     }
    }
  }
 </style>

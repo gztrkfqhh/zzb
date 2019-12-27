@@ -18,7 +18,7 @@ const header = {
         state.BtnclassName = 'fa fa-outdent'
         state.elMenuLeftClass = ''
         state.elMenuRightClass = ''
-        state.homeStyle = {paddingLeft: '195px'}
+        state.homeStyle = {marginLeft: '195px'}
       }
     }
   },
