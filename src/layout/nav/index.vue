@@ -1,7 +1,7 @@
 <template>
   <div class="_navindex" :class="elMenuRightClass ? elMenuRightClass : 'elmenuright'">
     <el-menu
-      :default-active="$route.path"
+      :default-active="activeMenu"
       class="el-menu-vertical-demo iscolclass"
       :class="elMenuLeftClass ?  elMenuLeftClass: 'elmenuleft'"
       :collapse="isCollapse"
@@ -47,7 +47,17 @@ export default {
       elMenuLeftClass: state => state.header.elMenuLeftClass,
       elMenuRightClass: state => state.header.elMenuRightClass,
       menuLists: state => state.route.getroutes
-    })
+    }),
+    activeMenu () {
+      const route = this.$route
+      const { meta, path } = route
+      // if set path, the sidebar will highlight the path you set
+      if (meta.apiActiveMenu) { // 注意这里很重要
+        console.log(meta)
+        return meta.apiActiveMenu
+      }
+      return path
+    }
   },
   watch: {
     '$route' (to) {

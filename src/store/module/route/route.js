@@ -5,21 +5,24 @@ const route = {
   },
   mutations: {
     GETROUTES (state) {
+      state.getroutes = []
       routers.forEach((item) => {
         if (item.meta) {
-          state.getroutes.push({
-            path: item.path,
-            meta: {
-              name: item.name,
-              icon: item.icon
-            },
-            children: item.children.map(c => {
-              return {
-                path: item.path + c.path,
-                name: c.name
-              }
+          if (item.children) {
+            state.getroutes.push({
+              path: item.path,
+              meta: {
+                name: item.name,
+                icon: item.icon
+              },
+              children: item.children.map(c => {
+                return {
+                  path: item.path + c.path,
+                  name: c.name
+                }
+              })
             })
-          })
+          }
         } else {
           if (!item.hidden) {
             item.children.forEach(child => {

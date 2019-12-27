@@ -28,7 +28,7 @@ export default [
     name: '管理中心',
     icon: 'fa-ravelry',
     meta: {
-      a: 1
+      activeMenu: '/user'
     },
     component: Layout,
     children: [
@@ -40,8 +40,29 @@ export default [
       {
         path: 'user',
         name: '用户管理',
+        meta: {
+          activeMenu: '/user', // 主菜单 的 接口文档 高亮
+          apiActiveMenu: '/user/user' // 接口文档的子菜单高亮
+        },
         component: UserSuper
       }
     ]
+  },
+  {
+    path: '/:userid',
+    meta: {
+      activeMenu: '/user',
+      apiActiveMenu: '/user/user' // 接口文档的子菜单高亮
+    },
+    component: Layout,
+    children: [
+      {
+        path: '/:userid',
+        name: '用户id',
+        icon: 'fa-home',
+        component: () => import('@/views/manage/user/userid')
+      }
+    ],
+    hidden: true
   }
 ]
