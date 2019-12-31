@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({name: 'home'})
     } else {
-      document.title = to.name
+      document.title = to.meta.title
       next()
     }
     next()

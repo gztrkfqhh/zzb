@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Router from 'vue-router'
 import requrst from '@/api/requrst'
 import cookie from 'js-cookie'
 import store from './store'
@@ -16,8 +17,10 @@ import Qs from 'qs'
 // 引入全局定义
 import Global from '../config/global'
 import FontsIcon from './components/fonticons/'
+const Mock = require('mockjs')
 
 Vue.use(requrst)
+Vue.use(Mock)
 Vue.use(ElementUI)
 
 // 注册全局
@@ -30,8 +33,15 @@ Vue.config.productionTip = false
 Vue.prototype.$hs = Global.HOST
 Vue.prototype.$qs = Qs
 Vue.prototype.$ajax = requrst
+Vue.prototype.$mock = Mock
 Vue.prototype.$cookies = cookie
 Vue.prototype.$store = store
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,16 +1,12 @@
 <template>
   <div>
-    userId
+    test
   </div>
 </template>
 
 <script>
 export default {
-  name: 'userid',
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-    })
-  }
+  name: 'test'
 }
 </script>
 

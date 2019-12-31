@@ -6,6 +6,7 @@
       :class="elMenuLeftClass ?  elMenuLeftClass: 'elmenuleft'"
       :collapse="isCollapse"
       router
+      @select="handleRouteClick"
     >
       <template v-for="(item, index) in menuLists">
         <template v-if="item.meta">
@@ -49,19 +50,20 @@ export default {
       menuLists: state => state.route.getroutes
     }),
     activeMenu () {
-      const route = this.$route
-      const { meta, path } = route
+      let route = ''
+      route = this.$route
+      let { meta, path } = route
       // if set path, the sidebar will highlight the path you set
-      if (meta.apiActiveMenu) { // 注意这里很重要
-        console.log(meta)
-        return meta.apiActiveMenu
+      if (meta.activeMenu) { // 注意这里很重要
+        return meta.activeMenu
+      } else {
+        return path
       }
-      return path
     }
   },
   watch: {
     '$route' (to) {
-      document.title = to.name
+      document.title = to.meta.title
     },
     navList (val) {
       this.navData = val
@@ -70,7 +72,9 @@ export default {
   methods: {
     ...mapActions([
       'getRoutes'
-    ])
+    ]),
+    handleRouteClick (index, path) {
+    }
   },
   mounted () {
     this.getRoutes()

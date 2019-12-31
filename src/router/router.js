@@ -1,8 +1,10 @@
 import Layout from '@/layout/layout/layout'
 import Login from '@/views/login/login'
 import Home from '@/views/home/home'
+import Test from '@/views/test/test'
 import Admin from '@/views/manage/admin/admin'
 import UserSuper from '@/views/manage/user/user'
+import UserId from '@/views/manage/user/userid'
 
 export default [
   { path: '/login', name: 'login', title: '登录', component: Login, hidden: true },
@@ -12,57 +14,75 @@ export default [
     hidden: true
   },
   {
-    path: '/home',
+    path: '/',
     component: Layout,
     children: [
       {
         path: '/home',
-        name: '首页',
-        icon: 'fa-home',
+        name: 'home',
+        meta: {
+          title: '首页',
+          icon: 'fa-home'
+        },
         component: Home
       }
     ]
   },
   {
     path: '/user/',
-    name: '管理中心',
-    icon: 'fa-ravelry',
     meta: {
-      activeMenu: '/user'
+      title: '管理中心',
+      icon: 'fa-ravelry'
     },
     component: Layout,
     children: [
       {
         path: 'admin',
-        name: '后台管理',
+        name: 'houtai',
+        meta: {
+          title: '后台管理'
+        },
         component: Admin
       },
       {
         path: 'user',
-        name: '用户管理',
+        name: 'yonghu',
         meta: {
-          activeMenu: '/user', // 主菜单 的 接口文档 高亮
-          apiActiveMenu: '/user/user' // 接口文档的子菜单高亮
+          title: '用户管理'
         },
         component: UserSuper
       }
     ]
   },
   {
-    path: '/:userid',
-    meta: {
-      activeMenu: '/user',
-      apiActiveMenu: '/user/user' // 接口文档的子菜单高亮
-    },
+    path: '/user/user/',
+    hidden: true,
     component: Layout,
     children: [
       {
-        path: '/:userid',
-        name: '用户id',
-        icon: 'fa-home',
-        component: () => import('@/views/manage/user/userid')
+        path: ':id',
+        name: 'userid',
+        meta: {
+          activeMenu: '/user/user',
+          title: '用户ID'
+        },
+        component: UserId
       }
-    ],
-    hidden: true
+    ]
+  },
+  {
+    path: '/t',
+    component: Layout,
+    children: [
+      {
+        path: '/test',
+        name: 'test',
+        meta: {
+          title: '测试',
+          icon: 'fa-qq'
+        },
+        component: Test
+      }
+    ]
   }
 ]
