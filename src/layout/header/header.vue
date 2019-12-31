@@ -56,7 +56,7 @@ export default {
       // $route.matched一个数组 包含当前路由的所有嵌套路径片段的路由记录
       let matched = this.$route.matched.filter(item => {
         if (item.name !== '') {
-          return item.name
+          return item.meta.title
         }
       })
       this.levelList = matched
