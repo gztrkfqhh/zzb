@@ -1,7 +1,8 @@
 import routers from '@/router/router'
 const route = {
   state: {
-    getroutes: []
+    getroutes: [],
+    breadcrumb: {}
   },
   mutations: {
     GETROUTES (state) {
@@ -64,6 +65,15 @@ const route = {
                 })
               }
             })
+          } else {
+            if (item.children) {
+              item.children.forEach(child => {
+                console.log(child)
+              })
+            }
+            // state.breadcrumb = {
+            //   path: ''
+            // }
           }
         }
       })
