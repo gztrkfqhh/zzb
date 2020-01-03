@@ -36,9 +36,6 @@ export default {
       this.levelList = to.matched.filter(item => {
         return item.meta.title
       })
-      // if (to.meta.activeMenu) {
-      //   console.log(this.levelList)
-      // }
     }
   },
   methods: {
@@ -50,6 +47,7 @@ export default {
     },
     handleOutclick () {
       this.$cookies.remove('token')
+      localStorage.removeItem('_routes')
       this.$router.push('/login')
     },
     getBreadcrumb () {

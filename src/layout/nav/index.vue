@@ -53,8 +53,7 @@ export default {
       let route = ''
       route = this.$route
       let { meta, path } = route
-      // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenu) { // 注意这里很重要
+      if (meta.activeMenu) {
         return meta.activeMenu
       } else {
         return path
