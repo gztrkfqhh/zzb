@@ -16,8 +16,8 @@ const router = new Router({
 
 let GetToken
 let getRouter
-store.dispatch('setRoutes')
-// vuex 设置localStorage
+store.dispatch('setRoutes') // 触发动态路由数据
+// 设置localStorage
 let localRoutes = JSON.parse(localStorage.getItem('_routers'))
 router.beforeEach((to, from, next) => {
   // iView.LoadingBar.start()
@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
       document.title = to.meta.title
       next()
     }
-    if (!getRouter || getRouter === undefined) {
+    if (!getRouter && getRouter === undefined) {
       getRouter = _AddRouters(localRoutes)
       router.addRoutes(localRoutes)
       router.addRoutes([{ path: '*', redirect: '/404', hideInMenu: true }]) // 添加404及重定向路由规则

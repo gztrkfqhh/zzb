@@ -3,13 +3,13 @@ import apiRouter from '@/api/_addrouter'
 const route = {
   state: {
     getroutes: [],
-    setroutes: [],
-    breList: []
+    setroutes: []
   },
   mutations: {
     GETROUTES (state, Rdata) {
       state.getroutes = []
       let getLoStRoute = JSON.parse(localStorage.getItem('_routers'))
+      let dynamicRoute = [] // 页面里的动态路由
       if (getLoStRoute) {
         routers.concat(getLoStRoute).forEach((item) => {
           if (item.meta) { // 二级菜单
@@ -21,26 +21,33 @@ const route = {
                   icon: item.meta.icon
                 },
                 children: item.children.map(c => {
-                  console.log(c)
                   return {
                     path: item.path + c.path,
                     name: c.meta.title
                   }
                 })
               })
+              // console.log(state.getroutes)
             }
           } else { // 一级菜单
             if (!item.hidden) {
               item.children.forEach(child => {
-                if (!child.hidden) {
-                  state.getroutes.push({
-                    path: child.path,
-                    name: child.meta.title,
-                    icon: child.meta.icon
-                  })
-                }
+                state.getroutes.push({
+                  path: child.path,
+                  name: child.meta.title,
+                  icon: child.meta.icon
+                })
               })
             } else {
+              if (item.dynamic) {
+                item.children.forEach(dychild => {
+                  dynamicRoute.push({
+                    path: item.path + dychild.path,
+                    name: dychild.meta.title,
+                    childName: item.name
+                  })
+                })
+              }
             }
           }
         })
@@ -68,33 +75,66 @@ const route = {
 
       function filterAsyncRouter (asyncRouterMap) {
         // 下面是一级菜单
+        // 通过router里面的字符串active 筛选是否隐藏和最父级高亮
+        let activeHidden = []
         asyncRouterMap.forEach((route, index) => {
           if (route.menuName !== '/') {
-            console.log(route)
-            routersArr[index] = {
-              id: route.id,
-              path: route.router,
-              name: route.menuName,
-              orderNo: route.orderNo,
-              children: []
-            }
-            // 下面是一级菜单的children
-            if (route.children.length) {
-              // 有就添加
-              route.children.forEach((i) => {
-                routersArr[index].children.push(
-                  {
-                    id: i.id,
-                    path: i.router,
-                    name: i.menuName,
-                    orderNo: i.orderNo,
-                    meta: {
-                      title: i.name,
-                      icon: i.iconClass
+            if (route.router.indexOf('active') !== -1) {
+              activeHidden = route.router.split('active')
+              console.log(activeHidden)
+              routersArr[index] = {
+                id: route.id,
+                path: activeHidden[0],
+                name: route.menuName,
+                hidden: true,
+                dynamic: true,
+                orderNo: null,
+                children: []
+              }
+              // 下面是一级菜单的children
+              if (route.children.length) {
+                // 有就添加
+                route.children.forEach((i) => {
+                  routersArr[index].children.push(
+                    {
+                      id: i.id,
+                      path: i.router,
+                      name: i.menuName,
+                      orderNo: null,
+                      meta: {
+                        title: i.name,
+                        activeMenu: activeHidden[1]
+                      }
                     }
-                  }
-                )
-              })
+                  )
+                })
+              }
+            } else {
+              routersArr[index] = {
+                id: route.id,
+                path: route.router,
+                name: route.menuName,
+                orderNo: route.orderNo,
+                children: []
+              }
+              // 下面是一级菜单的children
+              if (route.children.length) {
+                // 有就添加
+                route.children.forEach((i) => {
+                  routersArr[index].children.push(
+                    {
+                      id: i.id,
+                      path: i.router,
+                      name: i.menuName,
+                      orderNo: i.orderNo,
+                      meta: {
+                        title: i.name,
+                        icon: i.iconClass
+                      }
+                    }
+                  )
+                })
+              }
             }
           } else {
             // 下面是二级菜单
@@ -131,13 +171,14 @@ const route = {
         routersArr.forEach(child => {
           child.children.sort(compare('orderNo'))
         })
-        function compare (prop) {
+        function compare (prop) { // 排序
           return function (a, b) {
             let val1 = a[prop]
             let val2 = b[prop]
             return val1 - val2
           }
         }
+        console.log(routersArr)
         localStorage.setItem('_routers', JSON.stringify(routersArr))
         state.setroutes = routersArr
       }

@@ -10,7 +10,7 @@
 <!--      <el-breadcrumb-item key="/">-->
 <!--        首页-->
 <!--      </el-breadcrumb-item>-->
-      <el-breadcrumb-item v-for="(item) in levelList" :key="item.path">
+      <el-breadcrumb-item v-for="(item, index) in levelList" :to="{name: item.name}" :key="index">
         {{item.meta.title}}
       </el-breadcrumb-item>
     </el-breadcrumb>
@@ -28,19 +28,27 @@ export default {
   data () {
     return {
       headIcon: 'fa fa-free-code-camp',
-      levelList: []
+      levelList: [],
+      breumb: []
     }
   },
   watch: {
     '$route' (to) {
-      this.levelList = to.matched.filter(item => {
-        return item.meta.title
-      })
+      console.log(to)
+      let vm = this
+      if (to.meta.activeMenu) {
+        vm.levelList.push(to)
+        if (to.) {}
+      } else {
+        vm.levelList = to.matched.filter(item => {
+          return item.meta.title
+        })
+      }
     }
   },
   methods: {
     ...mapActions([
-      'getCollapse'
+      'getCollapse', 'getRoutes'
     ]),
     handleclick () {
       this.getCollapse()
@@ -52,21 +60,24 @@ export default {
     },
     getBreadcrumb () {
       // $route.matched一个数组 包含当前路由的所有嵌套路径片段的路由记录
-      let matched = this.$route.matched.filter(item => {
-        if (item.name !== '') {
-          return item.meta.title
-        }
+      let matched = []
+      matched = this.$route.matched.filter(item => {
+        return item.meta.title
       })
       this.levelList = matched
     }
   },
   created () {
+    this.getRoutes()
     this.getBreadcrumb()
   },
   computed: {
     ...mapState({
-      BtnclassName: state => state.header.BtnclassName
+      BtnclassName: state => state.header.BtnclassName,
+      menuLists: state => state.route.getroutes
     })
+  },
+  mounted () {
   }
 }
 </script>

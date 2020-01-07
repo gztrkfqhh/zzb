@@ -16,17 +16,16 @@ import 'font-awesome/css/font-awesome.css'
 import Qs from 'qs'
 // 引入全局定义
 import Global from '../config/global'
+import Bus from '@/libs/bus/bus'
 import FontsIcon from './components/fonticons/'
 const Mock = require('mockjs')
 
 Vue.use(requrst)
-Vue.use(Mock)
 Vue.use(ElementUI)
 
 // 注册全局
 Vue.component('font-icon', FontsIcon)
 
-Vue.config.productionTip = false
 Vue.config.productionTip = false
 
 // Vue 挂载原型
@@ -36,6 +35,7 @@ Vue.prototype.$ajax = requrst
 Vue.prototype.$mock = Mock
 Vue.prototype.$cookies = cookie
 Vue.prototype.$store = store
+Vue.prototype.$bus = Bus
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location, onResolve, onReject) {

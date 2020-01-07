@@ -94,7 +94,7 @@ export default [
   //   ]
   // },
   // {
-  //   path: '/t',
+  //   path: '/test',
   //   title: '测试',
   //   name: '_test',
   //   component: Layout,

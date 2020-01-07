@@ -4,7 +4,8 @@ const header = {
     elMenuLeftClass: '',
     elMenuRightClass: '',
     BtnclassName: '',
-    homeStyle: ''
+    homeStyle: '',
+    breadcrumb: []
   },
   mutations: {
     GETCOLLAPSE (state) {
@@ -20,10 +21,15 @@ const header = {
         state.elMenuRightClass = ''
         state.homeStyle = {marginLeft: '195px'}
       }
+    },
+    GETBREUMB (state, val) {
+      console.log(val)
+      state.breadcrumb = val
     }
   },
   actions: {
-    getCollapse: context => context.commit('GETCOLLAPSE')
+    getCollapse: context => context.commit('GETCOLLAPSE'),
+    getTbreumb: (context, val) => context.commit('GETBREUMB', val)
   },
   getters: {
     //
