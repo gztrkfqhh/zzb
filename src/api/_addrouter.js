@@ -56,6 +56,7 @@ export default [
     name: '查询ID',
     menuName: '_userid',
     router: '/user/active/user/user'
+    // router: '/user/active用户管理'
   },
   {
     id: '1821',
@@ -70,6 +71,7 @@ export default [
     name: '年龄ID',
     menuName: '_ageid',
     router: '/user/active/user/user'
+    // router: '/user/active用户管理'
   },
   {
     id: '1831',

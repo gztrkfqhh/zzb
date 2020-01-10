@@ -38,7 +38,6 @@ export default {
       let vm = this
       if (to.meta.activeMenu) {
         vm.levelList.push(to)
-        if (to.) {}
       } else {
         vm.levelList = to.matched.filter(item => {
           return item.meta.title
