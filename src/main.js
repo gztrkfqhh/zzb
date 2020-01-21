@@ -7,9 +7,11 @@ import Router from 'vue-router'
 import requrst from '@/api/requrst'
 import cookie from 'js-cookie'
 import store from './store'
+import '@/resetstyle/reset.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import '@/resetstyle/reset.css'
+import Vant from 'vant'
+import 'vant/lib/index.css'
 // 引入font-awesome
 import 'font-awesome/css/font-awesome.css'
 
@@ -21,6 +23,7 @@ import FontsIcon from './components/fonticons/'
 const Mock = require('mockjs')
 
 Vue.use(requrst)
+Vue.use(Vant)
 Vue.use(ElementUI)
 
 // 注册全局

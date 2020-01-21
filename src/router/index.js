@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import routers from './router'
 import Main from '@/layout/layout/layout'
 import _import from '@/fileView'
-import store from '@/store'
 // 引入插件
 import Cookie from 'js-cookie'
 
@@ -16,7 +15,6 @@ const router = new Router({
 
 let GetToken
 let getRouter
-store.dispatch('setRoutes') // 触发动态路由数据
 // 设置localStorage
 let localRoutes = JSON.parse(localStorage.getItem('_routers'))
 router.beforeEach((to, from, next) => {
