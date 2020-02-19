@@ -8,6 +8,16 @@
       >
       </canvas>
     </div>
+    <div class="loginI18nbox">
+      <el-select class="loginI18n" @change="handleLogiI18nClick" v-model="i18NVal" placeholder="请选择">
+        <el-option
+          v-for="(item, index) in ['ZH', 'EN']"
+          :key="index"
+          :label="item"
+          :value="item">
+        </el-option>
+      </el-select>
+    </div>
     <div id="loginBox">
       <h4>Zhang H</h4>
       <el-form
@@ -28,7 +38,7 @@
             <el-col :span='22'>
               <el-input
                 class="inps"
-                placeholder='用户名'
+                :placeholder='$t("UserName")'
                 v-model="loginForm.userName"
               ></el-input>
             </el-col>
@@ -45,7 +55,7 @@
             <el-col :span='22'>
               <el-input
                 class="inps"
-                placeholder='密码'
+                :placeholder='$t("PassWord")'
                 v-model="loginForm.passWord"
               ></el-input>
             </el-col>
@@ -57,30 +67,21 @@
             round
             class="submitBtn"
             @click="submitForm('loginForm')"
-          >登录</el-button>
+          >
+            {{$t('Login')}}
+          </el-button>
         </el-form-item>
       </el-form>
-<!--      <van-cell-group>-->
-<!--        <van-field-->
-<!--          v-model="loginForm.userName"-->
-<!--          label="用户名"-->
-<!--          placeholder="请输入用户名"-->
-<!--        />-->
-<!--        <van-field-->
-<!--          v-model="loginForm.passWord"-->
-<!--          label="密码"-->
-<!--          type="password"-->
-<!--          placeholder="请输入密码"-->
-<!--        />-->
-<!--      </van-cell-group>-->
     </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   data () {
     return {
+      i18NVal: this.$cookies.get('loginI18n') ? this.$cookies.get('loginI18n') : 'ZH',
       canvas: null,
       context: null,
       stars: [], // 星星数组
@@ -131,17 +132,20 @@ export default {
       height: window.innerHeight,
       loginForm: {
         userName: 'zzz',
-        passWord: '123123'
+        passWord: ''
       },
       loginRules: {
         userName: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
+          { required: true, message: this.$t('InputUserName'), trigger: 'blur' }
         ],
-        passWord: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+        passWord: [{ required: true, message: this.$t('InputPassWord'), trigger: 'blur' }]
       }
     }
   },
   methods: {
+    ...mapActions([
+      'LoginI18n'
+    ]),
     // 提交登录
     submitForm (loginRules) {
       this.$cookies.set('username', this.loginForm.userName)
@@ -150,7 +154,7 @@ export default {
           this.$toast.loading({
             duration: 0, // 持续展示 toast
             forbidClick: true,
-            message: '登录中请稍后'
+            message: '登录中'
           })
           let second = 4
           const timer = setInterval(() => {
@@ -158,7 +162,6 @@ export default {
             if (second) {
               if (second === 1) {
                 this.$toast.success('登录成功')
-                this.$store.dispatch('setRoutes') // 触发动态路由数据
                 this.$router.push({name: 'home'})
               }
             } else {
@@ -248,6 +251,11 @@ export default {
         star.x += star.radius / this.speed
       }
       star.draw(this.context)
+    },
+    handleLogiI18nClick (val) {
+      this.$i18.locale = val
+      this.$cookies.set('loginI18n', val)
+      location.reload()
     }
   },
   mounted () {
@@ -272,6 +280,23 @@ export default {
     background-size: 100%;
     background: url('../../assets/img/aaa.png') no-repeat #242645;
     background-position: center;
+    .loginI18nbox{
+      width: 40px;
+      cursor: pointer;
+      position: absolute;
+      right: 40px;
+      top: 0;
+      overflow: hidden;
+      .loginI18n {
+        width: 70px;
+        input {
+          border-radius: 0;
+          background: none;
+          border: none;
+          color: #fff;
+        }
+      }
+    }
     #bgd {
       height: 100vh;
       width: 100vw;

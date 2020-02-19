@@ -1,7 +1,5 @@
 import routers from '@/router/router'
-import Routers from 'vue-router'
 import apiRouter from '@/api/_addrouter'
-import store from '@/store'
 const route = {
   state: {
     getroutes: [],
@@ -54,12 +52,6 @@ const route = {
           }
         })
       }
-      const originalPush = Routers.prototype.push
-      Routers.prototype.push = function push (location, onResolve, onReject) {
-        if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
-        return originalPush.call(this, location).catch(err => err)
-      }
-      Routers.push({name: 'home'})
     },
     SETROUTES: (state) => {
       const Data = apiRouter
@@ -187,8 +179,8 @@ const route = {
           }
         }
         localStorage.setItem('_routers', JSON.stringify(routersArr))
-        store.dispatch('getRoutes')
         state.setroutes = routersArr
+        console.log(routersArr)
       }
     }
   },

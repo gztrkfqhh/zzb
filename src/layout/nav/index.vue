@@ -62,7 +62,6 @@ export default {
   },
   watch: {
     '$route' (to) {
-      console.log(to)
       document.title = to.meta.title
     },
     navList (val) {

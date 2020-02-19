@@ -14,6 +14,9 @@
         {{item.meta.title}}
       </el-breadcrumb-item>
     </el-breadcrumb>
+    <span>
+      {{$cookies.get('username')}}
+    </span>
     <el-button class="fr outdent out" @click="handleOutclick">
       退出
     </el-button>
@@ -34,7 +37,6 @@ export default {
   },
   watch: {
     '$route' (to) {
-      console.log(to)
       let vm = this
       if (to.meta.activeMenu) {
         vm.levelList.push(to)
